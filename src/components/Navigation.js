@@ -1,15 +1,16 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-
+import {
+  Container,
+  Nav,
+  Navbar
+} from 'react-bootstrap';
 
 const Navigation = () => {
     return(
         <React.Fragment>
-            <Navbar bg='light' expand='lg'>
+            <Navbar fixed='top' bg='light' expand='lg'>
               <Container>
-                <Navbar.Brand href='/'>Home-Finder</Navbar.Brand>
+                <Navbar.Brand href='/'>Home Finder</Navbar.Brand>
                 <Navbar.Toggle aria-controls='basic-navbar-nav' />
                 <Navbar.Collapse id='basic-navbar-nav'>
                   <Nav className='me-auto'>

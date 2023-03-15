@@ -1,3 +1,43 @@
 .App {
   text-align: center;
 }
+
+.splash {
+  background-image: url('/public/house.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.input-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20rem 0 20rem 0;
+}
+
+.home-card {
+  margin-top: 100px;
+  max-width: 26rem;
+  transition: transform .2s;
+}
+
+.home-card:hover {
+  transform: scale(1.02);
+}
+
+.home-card-column {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1020px) {
+  .card-row {
+    display: flex;
+    flex-direction: column;
+  }
+  .home-card {
+    margin-top: 20px;
+  }
+}
+
