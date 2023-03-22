@@ -1,24 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
     Container, 
     Row, 
     Col, 
     Form, 
     Button, 
-    Card 
+    Card
 } from 'react-bootstrap';
 
 const Home = () => {
+    const [ input, setInput ] = useState('');
+
+    const handleChange = (e) => {
+        setInput(e.target.value)
+    }
+
+    const handleSubmit = () => {
+        //placeholder
+    }
+
+    const handleClick = () => {
+        localStorage.setItem('input', JSON.stringify(input))
+    }
+
     return(
         <React.Fragment>
             <Container fluid className='splash'>
                 <Row className='input-row'>
-                    <Col xs={8} md={6} lg={4}>
-                    <Form>
-                        <Form.Group className='mb-3' controlId='input-query'>
-                            <Form.Control className='p-3' type='text' placeholder='Enter an address, neighborhood, city or ZIP code' />
+                    <Col className='input-container' >
+                    <Form onSubmit={handleSubmit} className='form-container input-box'>
+                        <Form.Group className='mb-3'>
+                            <Form.Control onChange={handleChange} className='p-3' type='text' placeholder='Enter an address, neighborhood, city or ZIP code' />
                         </Form.Group>
                     </Form>
+                    <Link to='/sale-properties'>
+                        <Button onClick={handleClick}>Go</Button>
+                    </Link>
                     </Col>
                 </Row>
             </Container>
@@ -78,7 +96,6 @@ const Home = () => {
                     </Col>
                 </Row>
             </Container>
-            
         </React.Fragment>
     )
 }

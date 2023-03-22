@@ -16,6 +16,16 @@
   padding: 20rem 0 20rem 0;
 }
 
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-box {
+  width: 400px;
+}
+
 .home-card {
   margin-top: 100px;
   max-width: 26rem;
@@ -29,6 +39,15 @@
 .home-card-column {
   display: flex;
   justify-content: center;
+}
+
+.form-container {
+  height: 75px;
+  padding: 10px;
+}
+
+.form-input {
+  width: 400px;
 }
 
 @media screen and (max-width: 1020px) {

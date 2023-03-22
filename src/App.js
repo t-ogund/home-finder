@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import Navigation from './components/Navigation';
 import Home from './components/Home';
@@ -10,9 +11,9 @@ function App() {
     <div className='App'>
       <Navigation />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='rental-properties' element={<RentalProperties />} />
-        <Route path='sale-properties' element={<SaleProperties />} />
+          <Route path='/' element={<Home />} />
+          <Route path='rental-properties' element={<RentalProperties />} />
+          <Route path='sale-properties' element={<SaleProperties />} />
       </Routes>
     </div>
   );
