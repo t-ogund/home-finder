@@ -50,6 +50,14 @@
   width: 400px;
 }
 
+#property-marker {
+  height: 1px;
+  width: 1px;
+  background-color: red;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
 @media screen and (max-width: 1020px) {
   .card-row {
     display: flex;

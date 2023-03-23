@@ -1,16 +1,16 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
-const PropertyCard = () => {
+const PropertyCard = (props) => {
     return(
-        <div style={{ display: 'inline-block', margin: '5px', padding: 0, backgroundColor: 'green' }}>
-            <Card style={{ height: '20rem', width: '20rem', textAlign: 'left' }}>
-                <Card.Img variant="top" src="house-placeholder.jpg" />
+        <div style={{ display: 'inline-block', margin: '5px', padding: 0 }}>
+            <Card style={{ height: '22rem', width: '20rem', textAlign: 'left' }}>
+                <Card.Img variant="top" src={props.img} />
                 <Card.Body>
-                    <h5>$274,000</h5>
+                    <h5>${props.price}</h5>
                     <Card.Text>
-                        3 bds | 2ba | 2181 sqft - House for sale
-                        302 Park Ave, Rowley IA 52329
+                        {props.beds}bds | {props.baths}ba | {props.sqft} sqft - House for {props.status === 'FOR_SALE' ? 'sale' : 'rent' } <br></br>
+                        {props.address}
                     </Card.Text>
                 </Card.Body>
             </Card>
