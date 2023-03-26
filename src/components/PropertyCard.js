@@ -5,7 +5,7 @@ const PropertyCard = (props) => {
     return(
         <div style={{ display: 'inline-block', margin: '5px', padding: 0 }}>
             <Card style={{ height: '22rem', width: '20rem', textAlign: 'left' }}>
-                <Card.Img variant="top" src={props.img} />
+                <Card.Img variant='top' src={props.img} />
                 <Card.Body>
                     <h5>${props.price}</h5>
                     <Card.Text>

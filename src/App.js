@@ -7,13 +7,14 @@ import SaleProperties from './components/SaleProperties';
 import { Routes, Route } from 'react-router';
 
 function App() {
+  
   return (
     <div className='App'>
       <Navigation />
       <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='rental-properties' element={<RentalProperties />} />
-          <Route path='sale-properties' element={<SaleProperties />} />
+            <Route path='rental-properties' element={<RentalProperties />} />
+            <Route path='sale-properties' element={<SaleProperties />} />
       </Routes>
     </div>
   );
