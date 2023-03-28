@@ -26,14 +26,26 @@ useEffect(() => {
         /* map through property results. For each property result, create a PropertyMarker component
          whose coordinates are the latitude and longitude of each property */
         setMarkers(
+            /* if properties were filtered by price, for each property
+            create PropertyMarker component whose coordinates are the latitude 
+            and longitude of each property */
+            props.priceRangeProperties !== null?
+            await props.priceRangeProperties.map(result => {
+                return <PropertyMarker key={result.props.zpid} lat={result.props.lat} lng={result.props.lng} />
+            })
+            /* if no price filter, for each property
+            create PropertyMarker component whose coordinates are the latitude 
+            and longitude of each property */
+            :
             await props.results.props.map(result => {
                 return <PropertyMarker key={result.zpid} lat={result.latitude} lng={result.longitude} />
             })
         )
     }
+
     configureMarkers()
 
-}, [ props.results.props ])
+}, [ props.results.props, props.priceRangeProperties ])
 
     return(
         <div style={{ height: '100vh' }} className='map'>
