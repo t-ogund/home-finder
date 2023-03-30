@@ -31,7 +31,8 @@ useEffect(() => {
             and longitude of each property */
             props.priceRangeProperties !== null?
             await props.priceRangeProperties.map(result => {
-                return <PropertyMarker key={result.props.zpid} lat={result.props.lat} lng={result.props.lng} />
+                console.log(result)
+                return <PropertyMarker key={result.props.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} />
             })
             /* if no price filter, for each property
             create PropertyMarker component whose coordinates are the latitude 

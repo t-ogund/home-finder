@@ -16,7 +16,11 @@ const REACT_APP_ZILLOW_API_KEY = process.env.REACT_APP_ZILLOW_API_KEY;
 const REACT_APP_ZILLOW_API_HOST = process.env.REACT_APP_ZILLOW_API_HOST;
 
 const SaleProperties = () => {
+// get location query from local storage
+const query = localStorage.getItem('input').replace(/['"]+/g, '')
+const [ location, setLocation ] = useState(query)
 const [ results, setResults ] = useState([]);
+const [ buyPageQuery, setBuyPageQuery ] = useState('');
 const [ min, setMin ] = useState(null);
 const [ max, setMax ] = useState(null);
 const [ priceRangeProperties, setPriceRangeProperties ] = useState(null);
@@ -30,17 +34,21 @@ const options = {
 	}
 };
 
-// get location query from local storage
-const location = localStorage.getItem('input').replace(/['"]+/g, '')
 
 useEffect(() => {
     /* make a GET request to the api, passing in location parameter from local storage
     and useState to set the response to result */
-    fetch(`https://zillow-com1.p.rapidapi.com/propertyExtendedSearch?location=${location}`, options)
+
+    // set location to value saved in local storage
+    setLocation(
+        localStorage.getItem('input').replace(/['"]+/g, '')
+    )
+
+    location && fetch(`https://zillow-com1.p.rapidapi.com/propertyExtendedSearch?location=${location}`, options)
         .then(response => response.json())
         .then(response => setResults(response))
         .catch(err => console.error(err));
-}, [])
+}, [ location ])
 
     // take response from api call and filter for only properties that are for sale
     const propertiesForSale = results.props && results.props.filter(property => {
@@ -50,18 +58,20 @@ useEffect(() => {
     })
     // take properties for sale and for each property create a PropertyCard component
     .map(property => {
-        return <PropertyCard
-                    key={property.zpid}
-                    price={property.price}
-                    beds={property.bedrooms}
-                    baths={property.bathrooms}
-                    sqft={property.lotAreaValue}
-                    address={property.address}
-                    status={property.listingStatus}
-                    img={property.imgSrc}
-                    lat={property.latitude}
-                    lng={property.longitude}
-                />
+        return <Col xl={6} lg={12} md={4} sm={6}>
+                    <PropertyCard
+                        key={property.zpid}
+                        price={property.price}
+                        beds={property.bedrooms}
+                        baths={property.bathrooms}
+                        sqft={property.lotAreaValue}
+                        address={property.address}
+                        status={property.listingStatus}
+                        img={property.imgSrc}
+                        lat={property.latitude}
+                        lng={property.longitude}
+                    />
+                </Col>
     })
 
     function handleClickMin(e) {
@@ -89,29 +99,44 @@ useEffect(() => {
             /* if no price filter warnings, filter properties and
             for each property that meets filter condition, create a PropertyCard component */
             setPriceRangeProperties(
-                results.props.filter(property => {
-                    if ((property.price >= formattedMin) && (property.price < formattedMax)) {
-                        return property
-                    }
-                }
-                    
+                    results.props.filter(property => {
+                        if ((property.price >= formattedMin) && (property.price < formattedMax)) {
+                            return property
+                        }
+                    }     
                 )
                 .map(property => {
-                    return <PropertyCard
-                                key={property.zpid}
-                                price={property.price}
-                                beds={property.bedrooms}
-                                baths={property.bathrooms}
-                                sqft={property.lotAreaValue}
-                                address={property.address}
-                                status={property.listingStatus}
-                                img={property.imgSrc}
-                                lat={property.latitude}
-                                lng={property.longitude}
-                            />
+                    return (<Col xl={6} lg={12} md={4} sm={6}>
+                                <PropertyCard
+                                    key={property.zpid}
+                                    price={property.price}
+                                    beds={property.bedrooms}
+                                    baths={property.bathrooms}
+                                    sqft={property.lotAreaValue}
+                                    address={property.address}
+                                    status={property.listingStatus}
+                                    img={property.imgSrc}
+                                    lat={property.latitude}
+                                    lng={property.longitude}
+                                />
+                            </Col>)
                 })
             )
         }
+    }
+
+    function handleChange(e) {
+        setBuyPageQuery(e.target.value)
+    }
+
+    /* when searching for properties from buy page, reset price range filters
+     and set the new location to be saved in local storage. New location value 
+     will now be called in useEffect function above */
+    function handleClick() {
+        setPriceRangeProperties(null)
+        setLocation(
+            localStorage.setItem('input', JSON.stringify(buyPageQuery))
+        )
     }
 
     return(
@@ -122,7 +147,8 @@ useEffect(() => {
                         <Col>
                         <Form className='form-input'>
                             <Form.Group className='mb-3' controlId='formBasicEmail'>
-                                <Form.Control type='text' placeholder='City, Neighborhood, ZIP, Address' />
+                                <Form.Control onChange={handleChange} type='text' placeholder='City, Neighborhood, ZIP, Address' />
+                                <Button onClick={handleClick}>Go!</Button>
                             </Form.Group>
                         </Form>
                             <DropdownButton className='align-filter-dropdowns' id="dropdown-basic-button" title="Change Property Type">
@@ -194,11 +220,15 @@ useEffect(() => {
                     }   
                 </Col>
                 <Col></Col>
-                <Col className='property-image-container offset-2 offset-sm-6 py-2' lg={4} xl={5}>
+                <Col className='property-image-container offset-sm py-5' lg={4} xl={5}>
                     <h3>Real Estate & Homes for Sale</h3>
                     {
-                        // display properties for sale
-                        priceRangeProperties !== null ? priceRangeProperties : propertiesForSale 
+                        <Row>
+                            {
+                                // display properties for sale
+                                priceRangeProperties !== null ? priceRangeProperties : propertiesForSale  
+                            }
+                        </Row>
                     }
                 </Col>
             </Row>

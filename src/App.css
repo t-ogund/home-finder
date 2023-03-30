@@ -43,7 +43,7 @@
 }
 
 .presentation-row {
-  position: absolute;
+  position: relative;
   z-index: -1;
 }
 
@@ -57,7 +57,15 @@
 
 .property-image-container {
   padding: 0;
-  margin: 0
+  margin: 0;
+}
+
+.property-container {
+  /* min-width: 100%; */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
+/* margin: 0 auto; */
 }
 
 .apply-button-container {
@@ -96,4 +104,3 @@
     margin-top: 20px;
   }
 }
-
