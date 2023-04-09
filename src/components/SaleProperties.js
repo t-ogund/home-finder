@@ -6,11 +6,14 @@ import {
     Form,
     Dropdown,
     DropdownButton,
-    Button
+    Button,
+    InputGroup
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropertyCard from './PropertyCard';
 import Map from './Map';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 const REACT_APP_ZILLOW_API_KEY = process.env.REACT_APP_ZILLOW_API_KEY;
 const REACT_APP_ZILLOW_API_HOST = process.env.REACT_APP_ZILLOW_API_HOST;
@@ -50,29 +53,37 @@ useEffect(() => {
         .catch(err => console.error(err));
 }, [ location ])
 
+let propertiesForSale
+let pending
+    if (Object.keys(results).length === 0) {
+        pending = <h2>Searching...</h2>
+    } else {
+
     // take response from api call and filter for only properties that are for sale
-    const propertiesForSale = results.props && results.props.filter(property => {
-        if (property.listingStatus === 'FOR_SALE') {
+    propertiesForSale = results.props && results.props.filter(property => {
+        if ((property.listingStatus === 'FOR_SALE' && property.price !== null) && (property.latitude !== null && property.longitude !== null)) {
             return property
         }
     })
-    // take properties for sale and for each property create a PropertyCard component
-    .map(property => {
-        return <Col xl={6} lg={12} md={4} sm={6}>
-                    <PropertyCard
-                        key={property.zpid}
-                        price={property.price}
-                        beds={property.bedrooms}
-                        baths={property.bathrooms}
-                        sqft={property.lotAreaValue}
-                        address={property.address}
-                        status={property.listingStatus}
-                        img={property.imgSrc}
-                        lat={property.latitude}
-                        lng={property.longitude}
-                    />
-                </Col>
-    })
+        // take properties for sale and for each property create a PropertyCard component
+        .map(property => {
+            return <Col className='p-1' xl={6} lg={12} md={4} sm={6}>
+                        <PropertyCard
+                            key={property.zpid}
+                            price={property.price}
+                            beds={property.bedrooms}
+                            baths={property.bathrooms}
+                            sqft={property.livingArea}
+                            address={property.address}
+                            status={property.listingStatus}
+                            img={property.imgSrc}
+                            lat={property.latitude}
+                            lng={property.longitude}
+                        />
+                    </Col>
+        })
+    }
+    
 
     function handleClickMin(e) {
         setMin(e.target.textContent)
@@ -106,13 +117,13 @@ useEffect(() => {
                     }     
                 )
                 .map(property => {
-                    return (<Col xl={6} lg={12} md={4} sm={6}>
+                    return (<Col className='p-1' xl={6} lg={12} md={4} sm={6}>
                                 <PropertyCard
                                     key={property.zpid}
                                     price={property.price}
                                     beds={property.bedrooms}
                                     baths={property.bathrooms}
-                                    sqft={property.lotAreaValue}
+                                    sqft={property.livingArea}
                                     address={property.address}
                                     status={property.listingStatus}
                                     img={property.imgSrc}
@@ -144,19 +155,22 @@ useEffect(() => {
             <Row>
                 <Col className='fixed-top mt-5 p-0'>
                     <Row className='form-container'>
-                        <Col>
-                        <Form className='form-input'>
-                            <Form.Group className='mb-3' controlId='formBasicEmail'>
-                                <Form.Control onChange={handleChange} type='text' placeholder='City, Neighborhood, ZIP, Address' />
-                                <Button onClick={handleClick}>Go!</Button>
-                            </Form.Group>
+                        <Col className='options-container'>
+                        <Form className='form-input m-1'>
+                            <InputGroup>
+                                <Form.Control id='buy-page-searchbox' onChange={handleChange} type='text' placeholder='City, Neighborhood, ZIP, Address' />
+                        <Button style={{ border: '1px solid gray', height: '100%', margin: '0' }} id='buy-page-search-button' className='m-1' onClick={handleClick}>
+                        <FontAwesomeIcon style={{ color: 'grey', fontSize: '1.2rem' }} icon={faMagnifyingGlass} />
+                        </Button>
+
+                            </InputGroup>
                         </Form>
-                            <DropdownButton className='align-filter-dropdowns' id="dropdown-basic-button" title="Change Property Type">
+                            <DropdownButton className='align-filter-dropdowns m-1' id="dropdown-basic-button" title="Change Property Type">
                                 <Dropdown.Item href="#/action-1">
                                     <Link className='property-type-link' to='/rental-properties'>Rentals</Link>
                                 </Dropdown.Item>
                             </DropdownButton>
-                            <Dropdown className="d-inline mx-2" autoClose="outside">
+                            <Dropdown className="d-inline mx-2 m-1" autoClose="outside">
                                 <Dropdown.Toggle id="dropdown-autoclose-outside">
                                     Set Price Range
                                 </Dropdown.Toggle>
@@ -210,23 +224,43 @@ useEffect(() => {
             <Row className='presentation-row h-100'>
                 <Col lg={8} xl={7} style={{ marginTop: '100px' }} className='d-none d-lg-block h-100 fixed-top'>
                     {
+                        // if no results, display the coordinates lat: 0 and lng: 0 on the map
                         results &&
+                        Object.keys(results).length === 0 ?
                         <Map  
                             results={results}
                             priceRangeProperties={priceRangeProperties}
-                            lat={!Array.isArray(results) ? results.props[0].latitude : null}
-                            lng={!Array.isArray(results) > 0 ? results.props[0].longitude : null} 
+                            lat={!Array.isArray(results) ? '0' : null}
+                            lng={!Array.isArray(results) > 0 ? '0' : null} 
                         /> 
+                        :
+                        // if there are results, default map location is lat and lng of first result
+                        <Map  
+                            results={results}
+                            priceRangeProperties={priceRangeProperties}
+                            lat={!Array.isArray(results) ? propertiesForSale[0].props.children.props.lat : null}
+                            lng={!Array.isArray(results) > 0 ? propertiesForSale[0].props.children.props.lng : null} 
+                        /> 
+                        
+                        
                     }   
                 </Col>
                 <Col></Col>
                 <Col className='property-image-container offset-sm py-5' lg={4} xl={5}>
                     <h3>Real Estate & Homes for Sale</h3>
                     {
-                        <Row>
+                        <Row className='mt-5'>
                             {
-                                // display properties for sale
+                                results.props ?
                                 priceRangeProperties !== null ? priceRangeProperties : propertiesForSale  
+                                :
+                                
+                                    results.length === 0 ?
+                                    pending
+                                    :
+                                    <h2>No Results...</h2>                                
+                                
+                                // display properties for sale
                             }
                         </Row>
                     }

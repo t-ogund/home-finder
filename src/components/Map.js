@@ -29,24 +29,34 @@ useEffect(() => {
             /* if properties were filtered by price, for each property
             create PropertyMarker component whose coordinates are the latitude 
             and longitude of each property */
-            props.priceRangeProperties !== null?
+            props.priceRangeProperties !== null ?
             await props.priceRangeProperties.map(result => {
-                console.log(result)
-                return <PropertyMarker key={result.props.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} />
+                return <PropertyMarker key={result.props.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} />
             })
-            /* if no price filter, for each property
+            
+            :
+   
+            /* if no price filter and property is FOR_RENT - for each property
             create PropertyMarker component whose coordinates are the latitude 
             and longitude of each property */
+            props.results[0] !== undefined && props.results[0].props.children.props.status === 'FOR_RENT' ?
+            await props.results.map(result => {
+                return <PropertyMarker key={result.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} />
+            })
+
             :
+            /* if no price filter and property is FOR_SALE - for each property
+            create PropertyMarker component whose coordinates are the latitude 
+            and longitude of each property */
             await props.results.props.map(result => {
-                return <PropertyMarker key={result.zpid} lat={result.latitude} lng={result.longitude} />
+                return <PropertyMarker key={result.zpid} lat={result.latitude} lng={result.longitude} status={result.listingStatus} />
             })
         )
     }
 
     configureMarkers()
 
-}, [ props.results.props, props.priceRangeProperties ])
+}, [ props.results.props, props.priceRangeProperties, props.results ])
 
     return(
         <div style={{ height: '100vh' }} className='map'>

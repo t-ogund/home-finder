@@ -1,8 +1,9 @@
 import React from 'react';
 
-const PropertyMarker = () => {
+const PropertyMarker = (props) => {
+    console.log('marker props', props)
     return(
-        <div id='property-marker'>
+        <div id={`${props.status === 'FOR_SALE' ? 'sale': 'rental'}-property-marker`}>
 
         </div>
     )

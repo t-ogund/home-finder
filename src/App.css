@@ -15,11 +15,10 @@
 .input-container {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .input-box {
-  width: 400px;
+  width: 425px;
 }
 
 .home-card {
@@ -42,9 +41,35 @@
   display: inline-block;
 }
 
+#home-search-button {
+  height: 100%;
+  background-color: white;
+  border: 1px solid white;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .presentation-row {
   position: relative;
   z-index: -1;
+}
+
+.options-container {
+  /* text-align: center; */
+  background-color: white;
+}
+
+#buy-page-searchbox {
+  margin-left: .5rem;
+}
+
+#buy-page-search-button {
+  background-color: white;
+  border: 1px solid white;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  height: 100%;
+  margin: 0 !important; 
 }
 
 .align-filter-dropdowns {
@@ -60,14 +85,6 @@
   margin: 0;
 }
 
-.property-container {
-  /* min-width: 100%; */
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
-/* margin: 0 auto; */
-}
-
 .apply-button-container {
   display: flex;
   justify-content: center;
@@ -78,10 +95,18 @@
   width: 96.5%;
 }
 
-#property-marker {
+#sale-property-marker {
   height: 15px;
   width: 15px;
   background-color: red;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+#rental-property-marker {
+  height: 15px;
+  width: 15px;
+  background-color: purple;
   border: 2px solid white;
   border-radius: 50%;
 }
