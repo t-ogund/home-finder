@@ -166,7 +166,7 @@ let pending
                             </InputGroup>
                         </Form>
                             <DropdownButton className='align-filter-dropdowns m-1' id="dropdown-basic-button" title="Change Property Type">
-                                <Dropdown.Item href="#/action-1">
+                                <Dropdown.Item href="/rental-properties">
                                     <Link className='property-type-link' to='/rental-properties'>Rentals</Link>
                                 </Dropdown.Item>
                             </DropdownButton>

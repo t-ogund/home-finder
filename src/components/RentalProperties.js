@@ -53,6 +53,9 @@ useEffect(() => {
         .catch(err => console.error(err));
 }, [ location ])
 
+let pending
+
+
     /* take response from api call and filter for only properties that are for rent
     filtering out properties where price, lat, or lng are null */
 
@@ -135,6 +138,15 @@ useEffect(() => {
         )
     }
 
+    function handleClickMin(e) {
+        setMin(e.target.textContent)
+
+    }
+
+    function handleClickMax(e) {
+        setMax(e.target.textContent)
+    }
+
     return(
         <Container fluid className='h-80'>
             <Row>
@@ -151,8 +163,8 @@ useEffect(() => {
                             </InputGroup>
                         </Form>
                             <DropdownButton className='align-filter-dropdowns m-1' id="dropdown-basic-button" title="Change Property Type">
-                                <Dropdown.Item href="#/action-1">
-                                    <Link className='property-type-link' to='/rental-properties'>Rentals</Link>
+                                <Dropdown.Item href="/sale-properties">
+                                    <Link className='property-type-link' to='/rental-properties'>For Sale</Link>
                                 </Dropdown.Item>
                             </DropdownButton>
                             <Dropdown className="d-inline mx-2 m-1" autoClose="outside">
@@ -173,13 +185,13 @@ useEffect(() => {
                                             <Dropdown.Toggle id="dropdown-autoclose-outside">
                                                 {<input defaultValue={min} />}
                                             </Dropdown.Toggle>
-                                            {/* <Dropdown.Menu>
+                                            <Dropdown.Menu>
                                                 <Dropdown.Item href="#" onClick={handleClickMin}>$0</Dropdown.Item>
-                                                <Dropdown.Item href="#" onClick={handleClickMin}>$100,000</Dropdown.Item>
-                                                <Dropdown.Item href="#" onClick={handleClickMin}>$200,000</Dropdown.Item>
-                                                <Dropdown.Item href="#" onClick={handleClickMin}>$300,000</Dropdown.Item>
-                                                <Dropdown.Item href="#" onClick={handleClickMin}>$400,000</Dropdown.Item>
-                                            </Dropdown.Menu> */}
+                                                <Dropdown.Item href="#" onClick={handleClickMin}>$1,000</Dropdown.Item>
+                                                <Dropdown.Item href="#" onClick={handleClickMin}>$2,000</Dropdown.Item>
+                                                <Dropdown.Item href="#" onClick={handleClickMin}>$3,000</Dropdown.Item>
+                                                <Dropdown.Item href="#" onClick={handleClickMin}>$4,000</Dropdown.Item>
+                                            </Dropdown.Menu>
                                         </Dropdown>
                                         <Dropdown drop={'down-center'} className="d-inline mx-2" autoClose="outside">
                                             <Dropdown.Header>
@@ -188,13 +200,13 @@ useEffect(() => {
                                             <Dropdown.Toggle id="dropdown-autoclose-outside">
                                                 {<input defaultValue={max} />}
                                             </Dropdown.Toggle>
-                                            {/* <Dropdown.Menu>
-                                                <Dropdown.Item onClick={handleClickMax}>$200,000</Dropdown.Item>
-                                                <Dropdown.Item onClick={handleClickMax}>$300,000</Dropdown.Item>
-                                                <Dropdown.Item onClick={handleClickMax}>$400,000</Dropdown.Item>
-                                                <Dropdown.Item onClick={handleClickMax}>$500,000</Dropdown.Item>
-                                                <Dropdown.Item onClick={handleClickMax}>$600,000+</Dropdown.Item>
-                                            </Dropdown.Menu> */}
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item onClick={handleClickMax}>$2,000</Dropdown.Item>
+                                                <Dropdown.Item onClick={handleClickMax}>$3,000</Dropdown.Item>
+                                                <Dropdown.Item onClick={handleClickMax}>$4,000</Dropdown.Item>
+                                                <Dropdown.Item onClick={handleClickMax}>$5,000</Dropdown.Item>
+                                                <Dropdown.Item onClick={handleClickMax}>$6,000+</Dropdown.Item>
+                                            </Dropdown.Menu>
                                         </Dropdown>
                                     </div>
                                     <div className='apply-button-container'>
@@ -224,7 +236,17 @@ useEffect(() => {
                     {
                         <Row>
                             {
-                                propertiesForRent
+                                // propertiesForRent
+                                results.props ?
+                                priceRangeProperties !== null ? priceRangeProperties : propertiesForRent  
+                                :
+                                
+                                    results.length === 0 ?
+                                    pending
+                                    :
+                                    <h2>No Results...</h2>                                
+                                
+                                // display properties for sale
                             }
                         </Row>
                     }
