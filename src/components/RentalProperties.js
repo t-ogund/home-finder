@@ -84,7 +84,14 @@ let pending
 
     function handleClickApply() {
         const formattedMin = Number(min.slice(1).replace(',',''))
-        const formattedMax = Number(max.slice(1).replace(',',''))
+        let formattedMax
+        
+        if (max.includes(6)) {
+            formattedMax = 999999999
+        } else {
+            formattedMax = Number(max.slice(1).replace(',',''))
+        }
+
         if (formattedMin > formattedMax) {
             setPriceFilterWarning(
                 'Minimum cannot be greater than maximum'
@@ -183,7 +190,7 @@ let pending
                                                 Minimum
                                             </Dropdown.Header>
                                             <Dropdown.Toggle id="dropdown-autoclose-outside">
-                                                {<input defaultValue={min} />}
+                                                {<input readOnly defaultValue={min} />}
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 <Dropdown.Item href="#" onClick={handleClickMin}>$0</Dropdown.Item>
@@ -198,7 +205,7 @@ let pending
                                                 Maximum
                                             </Dropdown.Header>
                                             <Dropdown.Toggle id="dropdown-autoclose-outside">
-                                                {<input defaultValue={max} />}
+                                                {<input readOnly defaultValue={max} />}
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 <Dropdown.Item onClick={handleClickMax}>$2,000</Dropdown.Item>
