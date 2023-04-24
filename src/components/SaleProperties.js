@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import PropertyCard from './PropertyCard';
 import Map from './Map';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const REACT_APP_ZILLOW_API_KEY = process.env.REACT_APP_ZILLOW_API_KEY;
 const REACT_APP_ZILLOW_API_HOST = process.env.REACT_APP_ZILLOW_API_HOST;
@@ -28,6 +28,7 @@ const [ min, setMin ] = useState(null);
 const [ max, setMax ] = useState(null);
 const [ priceRangeProperties, setPriceRangeProperties ] = useState(null);
 const [ priceFilterWarning, setPriceFilterWarning ] = useState('');
+
 
 const options = {
 	method: 'GET',
@@ -58,7 +59,7 @@ let pending
     if (location === '' && Object.keys(results).length === 0) {
         pending = <h2>Please enter a location</h2>
     } else if (location && Object.keys(results).length === 0) {
-        pending = <h2>Searching...</h2>
+        pending = <div className='pending-container'><h2>Searching...</h2></div>
     } else {
 
     // take response from api call and filter for only properties that are for sale
@@ -68,9 +69,11 @@ let pending
         }
     })
         // take properties for sale and for each property create a PropertyCard component
-        .map(property => {
+        .map((property, index) => {
             return <Col className='p-1' xl={6} lg={12} md={4} sm={6}>
                         <PropertyCard
+                            index={index}
+                            id={property.zpid}
                             key={property.zpid}
                             price={property.price}
                             beds={property.bedrooms}
@@ -125,9 +128,11 @@ let pending
                         }
                     }     
                 )
-                .map(property => {
+                .map((property, index) => {
                     return (<Col className='p-1' xl={6} lg={12} md={4} sm={6}>
                                 <PropertyCard
+                                    index={index}
+                                    id={property.zpid}
                                     key={property.zpid}
                                     price={property.price}
                                     beds={property.bedrooms}
@@ -190,7 +195,7 @@ let pending
                                         <span id='price-filter-warning'>{ priceFilterWarning }</span>
                                     </div>
                                     <div className='price-filter-dropdown-container'>
-                                        <Dropdown drop={'down-center'} className="d-inline mx-2" autoClose="outside">
+                                        <Dropdown drop={'down-center'} className="d-inline mx-2 filter-dropdown" autoClose="outside">
                                             <Dropdown.Header>
                                                 Minimum
                                             </Dropdown.Header>
@@ -231,7 +236,7 @@ let pending
                 </Col>
             </Row>
             <Row className='presentation-row h-100'>
-                <Col lg={8} xl={7} style={{ marginTop: '100px' }} className='d-none d-lg-block h-100 fixed-top'>
+                <Col lg={8} xl={7} style={{ marginTop: '100px' }} className='d-none d-lg-block h-100 fixed-top map-container'>
                     {
                         // if no results, display the coordinates lat: 0 and lng: 0 on the map
                         results &&
@@ -244,7 +249,8 @@ let pending
                         /> 
                         :
                         // if there are results, default map location is lat and lng of first result
-                        <Map  
+                        <Map
+                            className='map'
                             results={results}
                             priceRangeProperties={priceRangeProperties}
                             lat={!Array.isArray(results) ? propertiesForSale[0].props.children.props.lat : null}
@@ -271,6 +277,12 @@ let pending
                                 
                                 // display properties for sale
                             }
+                            {/* <PropertyCard />
+                            <PropertyCard />
+                            <PropertyCard />
+                            <PropertyCard />
+                            <PropertyCard />
+                            <PropertyCard /> */}
                         </Row>
                     }
                 </Col>

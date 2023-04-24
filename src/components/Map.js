@@ -30,8 +30,8 @@ useEffect(() => {
             create PropertyMarker component whose coordinates are the latitude 
             and longitude of each property */
             props.priceRangeProperties !== null ?
-            await props.priceRangeProperties.map(result => {
-                return <PropertyMarker key={result.props.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} />
+            await props.priceRangeProperties.map((result, index) => {
+                return <PropertyMarker index={index} key={result.props.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} />
             })
             
             :
@@ -40,16 +40,16 @@ useEffect(() => {
             create PropertyMarker component whose coordinates are the latitude 
             and longitude of each property */
             props.results[0] !== undefined && props.results[0].props.children.props.status === 'FOR_RENT' ?
-            await props.results.map(result => {
-                return <PropertyMarker key={result.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} />
+            await props.results.map((result, index) => {
+                return <PropertyMarker index={index} key={result.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} />
             })
 
             :
             /* if no price filter and property is FOR_SALE - for each property
             create PropertyMarker component whose coordinates are the latitude 
             and longitude of each property */
-            await props.results.props.map(result => {
-                return <PropertyMarker key={result.zpid} lat={result.latitude} lng={result.longitude} status={result.listingStatus} />
+            await props.results.props.map((result, index) => {
+                return <PropertyMarker index={index} key={result.zpid} lat={result.latitude} lng={result.longitude} status={result.listingStatus} />
             })
         )
     }

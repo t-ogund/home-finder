@@ -11,13 +11,15 @@ import {
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { useSelector, useDispatch } from 'react-redux';
+import { setInput } from '../actions';
+import { Carousel } from 'react-bootstrap';
+import { setInputReducer } from '../reducers/input';
+
 
 const Home = () => {
-    const [ input, setInput ] = useState('');
-
-    const handleChange = (e) => {
-        setInput(e.target.value)
-    }
+    const input = useSelector(state => state.setInputReducer);
+    const dispatch = useDispatch();
 
     const handleSubmit = () => {
         //placeholder
@@ -34,7 +36,7 @@ const Home = () => {
                     <Col className='input-container'>
                     <Form onSubmit={handleSubmit} className='form-container input-box'>
                         <InputGroup className='mb-3 d-flex'>
-                            <Form.Control aria-describedby="basic-addon2" onChange={handleChange} className='p-3' type='text' placeholder='Enter an address, neighborhood, city or ZIP code' />
+                            <Form.Control aria-describedby="basic-addon2" onChange={(e) => dispatch(setInput(e.target.value))} className='p-3' type='text' placeholder='Enter an address, neighborhood, city or ZIP code' />
                             <Link to='/sale-properties'>
                                 <Button id='home-search-button' onClick={handleClick}>
                                 <FontAwesomeIcon style={{ color: 'grey', fontSize: '1.2rem' }} icon={faMagnifyingGlass} />

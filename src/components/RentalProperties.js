@@ -55,7 +55,6 @@ useEffect(() => {
 
 let pending
 
-
     /* take response from api call and filter for only properties that are for rent
     filtering out properties where price, lat, or lng are null */
 
@@ -68,6 +67,7 @@ let pending
     .map(property => {
         return <Col className='p-1' xl={6} lg={12} md={4} sm={6}>
                     <PropertyCard
+                        id={property.zpid}
                         key={property.zpid}
                         price={property.price}
                         beds={property.bedrooms}
@@ -114,6 +114,7 @@ let pending
                 .map(property => {
                     return (<Col className='p-1' xl={6} lg={12} md={4} sm={6}>
                                 <PropertyCard
+                                    id={property.zpid}
                                     key={property.zpid}
                                     price={property.price}
                                     beds={property.bedrooms}
