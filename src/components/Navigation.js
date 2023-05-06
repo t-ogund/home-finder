@@ -13,9 +13,9 @@ const Navigation = () => {
               <Navbar.Toggle aria-controls='basic-navbar-nav' />
               <Navbar.Collapse id='basic-navbar-nav'>
                 <Nav className='me-auto'>
-                  <Nav.Link to='/' href='/'>Home</Nav.Link>
-                  <Nav.Link to='sale-properties' href='sale-properties'>Buy</Nav.Link>
-                  <Nav.Link to='rental-properties' href='rental-properties'>Rent</Nav.Link>
+                  <Nav.Link className='center-navlink' to='/' href='/'>Home</Nav.Link>
+                  <Nav.Link className='center-navlink' to='sale-properties' href='sale-properties'>Buy</Nav.Link>
+                  <Nav.Link className='center-navlink' to='rental-properties' href='rental-properties'>Rent</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Container>
