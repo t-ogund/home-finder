@@ -56,10 +56,15 @@
 
 .options-container {
   background-color: white;
+  position: fixed;
 }
 
 #buy-page-searchbox {
   margin-left: .5rem;
+}
+
+.property-dropdowns {
+  display: inline-block;
 }
 
 #buy-page-search-button {
@@ -77,6 +82,10 @@
 
 .price-filter-dropdown-container {
   display: flex;
+}
+
+.Card:hover {
+  cursor: pointer;
 }
 
 .property-image-container {
@@ -130,5 +139,27 @@
   }
   .home-card {
     margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 505px) {
+  .price-filter-dropdown-container{
+    flex-direction: column;
+    align-items: center;
+  }
+  .align-filter-dropdowns {
+    display: inline-block;
+  }
+  .property-dropdowns {
+    display: flex;
+    justify-content: center;
   }
 }

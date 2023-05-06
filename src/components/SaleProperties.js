@@ -59,7 +59,7 @@ let pending
     if (location === '' && Object.keys(results).length === 0) {
         pending = <h2>Please enter a location</h2>
     } else if (location && Object.keys(results).length === 0) {
-        pending = <div className='pending-container'><h2>Searching...</h2></div>
+        pending = <div className='pending-container'><h2>Searching {location}...</h2></div>
     } else {
 
     // take response from api call and filter for only properties that are for sale
@@ -167,28 +167,28 @@ let pending
     return(
         <Container fluid className='h-80'>
             <Row>
-                <Col className='fixed-top mt-5 p-0'>
+                <Col className='sticky-top mt-5 pt-2'>
                     <Row className='form-container'>
                         <Col className='options-container'>
-                        <Form className='form-input m-1'>
-                            <InputGroup>
-                                <Form.Control id='buy-page-searchbox' onChange={handleChange} type='text' placeholder='City, Neighborhood, ZIP, Address' />
-                        <Button style={{ border: '1px solid gray', height: '100%', margin: '0' }} id='buy-page-search-button' className='m-1' onClick={handleClick}>
-                        <FontAwesomeIcon style={{ color: 'grey', fontSize: '1.2rem' }} icon={faMagnifyingGlass} />
-                        </Button>
-
-                            </InputGroup>
-                        </Form>
+                            <Form className='form-input m-1'>
+                                <InputGroup>
+                                    <Form.Control id='buy-page-searchbox' onChange={handleChange} type='text' placeholder='City, Neighborhood, ZIP, Address' />
+                                        <Button style={{ border: '1px solid gray', height: '100%', margin: '0' }} id='buy-page-search-button' className='m-1' onClick={handleClick}>
+                                            <FontAwesomeIcon style={{ color: 'grey', fontSize: '1.2rem' }} icon={faMagnifyingGlass} />
+                                        </Button>
+                                </InputGroup>
+                            </Form>
+                            <div className='property-dropdowns'>
                             <DropdownButton className='align-filter-dropdowns m-1' id="dropdown-basic-button" title="Change Property Type">
                                 <Dropdown.Item href="/rental-properties">
                                     <Link className='property-type-link' to='/rental-properties'>Rentals</Link>
                                 </Dropdown.Item>
                             </DropdownButton>
-                            <Dropdown className="d-inline mx-2 m-1" autoClose="outside">
+                            <Dropdown className="align-filter-dropdowns mx-2 m-1" autoClose="outside">
                                 <Dropdown.Toggle id="dropdown-autoclose-outside">
                                     Set Price Range
                                 </Dropdown.Toggle>
-                                <Dropdown.Menu>
+                                <Dropdown.Menu className="buy-dropdown-menu">
                                     <Dropdown.Header>Price Range</Dropdown.Header>
                                     <Dropdown.Divider />
                                     <div id='filter-warning-container'>
@@ -231,6 +231,7 @@ let pending
                                     </div>
                                 </Dropdown.Menu>
                             </Dropdown>
+                            </div>
                         </Col>    
                     </Row>         
                 </Col>
@@ -262,9 +263,9 @@ let pending
                 </Col>
                 <Col></Col>
                 <Col className='property-image-container offset-sm py-5' lg={4} xl={5}>
-                    <h3>Real Estate & Homes for Sale</h3>
+                    <h3>For Sale in {location}</h3>
                     {
-                        <Row className='mt-5'>
+                        <Row>
                             {
                                 results.props ?
                                 priceRangeProperties !== null ? priceRangeProperties : propertiesForSale  
@@ -277,12 +278,6 @@ let pending
                                 
                                 // display properties for sale
                             }
-                            {/* <PropertyCard />
-                            <PropertyCard />
-                            <PropertyCard />
-                            <PropertyCard />
-                            <PropertyCard />
-                            <PropertyCard /> */}
                         </Row>
                     }
                 </Col>

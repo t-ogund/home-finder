@@ -50,12 +50,12 @@ const PropertyCard = (props) => {
 
     return(
         <>
-            <Card onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleShow} style={{ textAlign: 'left' }}>
+            <Card className='Card' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleShow} style={{ textAlign: 'left' }}>
                 <Card.Img style={{ height: '13rem' }} variant='top' src={props.img} />
                 <Card.Body className='p-1' style={{ height: '7rem' }}>
                     <h5 style={{ margin: '0' }}>${props.status === 'FOR_SALE' ? props.price : props.price + '/month'}</h5>
                     <Card.Text>
-                        {props.beds}bds | {props.baths}ba | {props.sqft} sqft - House for {props.status === 'FOR_SALE' ? 'sale' : 'rent' }
+                        {props.beds}bds | {props.baths}ba | {props.sqft} sqft - House for {props.status === 'FOR_SALE' ? 'sale' : 'rent' } -
                         {props.address}
                     </Card.Text>
                 </Card.Body>
@@ -64,7 +64,7 @@ const PropertyCard = (props) => {
             <Modal style={{ height: '100vh' }} show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Property at {props.address}
-                    {props.beds}bds | {props.baths}ba | {props.sqft} sqft - House for {props.status === 'FOR_SALE' ? 'sale' : 'rent' }
+                    {props.beds}bds | {props.baths}ba | {props.sqft} sqft - House for {props.status === 'FOR_SALE' ? 'sale' : 'rent' } -
                         {props.address}
                     </Modal.Title>
                 </Modal.Header>
@@ -80,10 +80,6 @@ const PropertyCard = (props) => {
                                         alt="First slide"
                                         style={{ maxHeight: '85vh', maxWidth: 'auto' }}
                                         />
-                                        <Carousel.Caption>
-                                            <h3>First slide label</h3>
-                                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                        </Carousel.Caption>
                                     </Carousel.Item>
                                 )
                             })

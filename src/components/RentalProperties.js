@@ -158,7 +158,7 @@ let pending
     return(
         <Container fluid className='h-80'>
             <Row>
-                <Col className='fixed-top mt-5 p-0'>
+                <Col className='sticky-top mt-5 pt-2'>
                     <Row className='form-container'>
                         <Col className='options-container'>
                         <Form className='form-input m-1'>
@@ -167,15 +167,15 @@ let pending
                         <Button style={{ border: '1px solid gray', height: '100%', margin: '0' }} id='buy-page-search-button' className='m-1' onClick={handleClick}>
                         <FontAwesomeIcon style={{ color: 'grey', fontSize: '1.2rem' }} icon={faMagnifyingGlass} />
                         </Button>
-
                             </InputGroup>
                         </Form>
+                        <div className='property-dropdowns'>
                             <DropdownButton className='align-filter-dropdowns m-1' id="dropdown-basic-button" title="Change Property Type">
                                 <Dropdown.Item href="/sale-properties">
                                     <Link className='property-type-link' to='/rental-properties'>For Sale</Link>
                                 </Dropdown.Item>
                             </DropdownButton>
-                            <Dropdown className="d-inline mx-2 m-1" autoClose="outside">
+                            <Dropdown className="align-filter-dropdowns mx-2 m-1" autoClose="outside">
                                 <Dropdown.Toggle id="dropdown-autoclose-outside">
                                     Set Price Range
                                 </Dropdown.Toggle>
@@ -222,6 +222,7 @@ let pending
                                     </div>
                                 </Dropdown.Menu>
                             </Dropdown>
+                            </div>
                         </Col>    
                     </Row>         
                 </Col>
@@ -240,7 +241,7 @@ let pending
                 </Col>
                 <Col></Col>
                 <Col className='property-image-container offset-sm py-5' lg={4} xl={5}>
-                    <h3>Real Estate & Homes for Sale</h3>
+                    <h3>For Rent in {location}</h3>
                     {
                         <Row>
                             {
