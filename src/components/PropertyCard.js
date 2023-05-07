@@ -48,6 +48,27 @@ const PropertyCard = (props) => {
    
     let newImages = images.images
 
+        let propertyType
+        if (props) {
+            switch (props.propertyType) {
+                case 'SINGLE_FAMILY':
+                    propertyType = 'House'
+                    break;
+                case 'CONDO':
+                    propertyType = 'Condo'
+                    break;
+                case 'TOWNHOUSE':
+                    propertyType = 'Townhouse'
+                    break;
+                case 'APARTMENT':
+                    propertyType = 'Apartment'
+                    break;
+                default:
+                    propertyType = 'Property'
+            }
+        }
+  
+
     return(
         <>
             <Card className='Card' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleShow} style={{ textAlign: 'left' }}>
@@ -55,8 +76,7 @@ const PropertyCard = (props) => {
                 <Card.Body className='p-1' style={{ height: '7rem' }}>
                     <h5 style={{ margin: '0' }}>${props.status === 'FOR_SALE' ? props.price === undefined ? 'TBD' : props.price : props.price === undefined ? 'TBD' : props.price + '/month'}</h5>
                     <Card.Text>
-                        {props.beds}bds | {props.baths}ba | {props.sqft} sqft - House for {props.status === 'FOR_SALE' ? 'sale' : 'rent' } -
-                        {props.address}
+                        {props.beds}bds | {props.baths}ba | {props.sqft} sqft - {propertyType} for {props.status === 'FOR_SALE' ? 'sale' : 'rent' } | {props.address}
                     </Card.Text>
                 </Card.Body>
             </Card>

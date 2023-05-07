@@ -84,6 +84,7 @@ let pending
                             img={property.imgSrc}
                             lat={property.latitude}
                             lng={property.longitude}
+                            propertyType={property.propertyType}
                         />
                     </Col>
         })
@@ -143,6 +144,7 @@ let pending
                                     img={property.imgSrc}
                                     lat={property.latitude}
                                     lng={property.longitude}
+                                    propertyType={property.propertyType}
                                 />
                             </Col>)
                 })
@@ -271,7 +273,7 @@ let pending
                                 priceRangeProperties !== null ? priceRangeProperties : propertiesForSale  
                                 :
                                 
-                                    results.length === 0 ?
+                                    results.length === 0 || results.zpid ?
                                     pending
                                     :
                                     <div className='pending-container'><h2>No Results...</h2></div>                              
