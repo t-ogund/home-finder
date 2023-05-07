@@ -274,7 +274,7 @@ let pending
                                     results.length === 0 ?
                                     pending
                                     :
-                                    <h2>No Results...</h2>                                
+                                    <div className='pending-container'><h2>No Results...</h2></div>                              
                                 
                                 // display properties for sale
                             }

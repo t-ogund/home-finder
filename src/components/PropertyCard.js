@@ -53,7 +53,7 @@ const PropertyCard = (props) => {
             <Card className='Card' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleShow} style={{ textAlign: 'left' }}>
                 <Card.Img style={{ height: '13rem' }} variant='top' src={props.img} />
                 <Card.Body className='p-1' style={{ height: '7rem' }}>
-                    <h5 style={{ margin: '0' }}>${props.status === 'FOR_SALE' ? props.price : props.price + '/month'}</h5>
+                    <h5 style={{ margin: '0' }}>${props.status === 'FOR_SALE' ? props.price === undefined ? 'TBD' : props.price : props.price === undefined ? 'TBD' : props.price + '/month'}</h5>
                     <Card.Text>
                         {props.beds}bds | {props.baths}ba | {props.sqft} sqft - House for {props.status === 'FOR_SALE' ? 'sale' : 'rent' } -
                         {props.address}
@@ -78,7 +78,7 @@ const PropertyCard = (props) => {
                                         className="d-block"
                                         src={image}
                                         alt="First slide"
-                                        style={{ maxHeight: '85vh', maxWidth: 'auto' }}
+                                        style={{ maxHeight: '85vh', width: '100%' }}
                                         />
                                     </Carousel.Item>
                                 )
