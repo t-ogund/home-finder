@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Carousel from 'react-bootstrap/Carousel';
 import { useDispatch } from 'react-redux';
 import { hoverEffect } from '../actions';
+import Spinner from 'react-bootstrap/Spinner';
 
 const REACT_APP_ZILLOW_API_KEY = process.env.REACT_APP_ZILLOW_API_KEY;
 const REACT_APP_ZILLOW_API_HOST = process.env.REACT_APP_ZILLOW_API_HOST;
@@ -68,11 +69,10 @@ const PropertyCard = (props) => {
             }
         }
   
-
     return(
         <>
             <Card className='Card' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleShow} style={{ textAlign: 'left' }}>
-                <Card.Img style={{ height: '13rem' }} variant='top' src={props.img} />
+                <Card.Img style={{ height: '13rem', objectFit: 'none' }} variant='top' src={props.img} />
                 <Card.Body className='p-1' style={{ height: '7rem' }}>
                     <h5 style={{ margin: '0' }}>${props.status === 'FOR_SALE' ? props.price === undefined ? 'TBD' : props.price : props.price === undefined ? 'TBD' : props.price + '/month'}</h5>
                     <Card.Text>
@@ -81,24 +81,30 @@ const PropertyCard = (props) => {
                 </Card.Body>
             </Card>
 
-            <Modal style={{ height: '100vh' }} show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+            <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Property at {props.address}
-                    {props.beds}bds | {props.baths}ba | {props.sqft} sqft - House for {props.status === 'FOR_SALE' ? 'sale' : 'rent' } -
-                        {props.address}
+                    <Modal.Title><h6>Property at {props.address} | {props.beds}bds | {props.baths}ba | {props.sqft} sqft - {propertyType} for {props.status === 'FOR_SALE' ? 'sale' : 'rent' } - {props.address}</h6>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Carousel fade>
                         { 
+                            newImages === undefined ?
+                            <div className='loading-spinner'>
+                                <h3>Hold tight...</h3>
+                                <Spinner animation="border" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </Spinner>
+                            </div>
+                            :
                             newImages && newImages.map(image => {
                                 return (
-                                    <Carousel.Item className='d-flex justify-content-center'>
+                                    <Carousel.Item key={image} className='d-flex justify-content-center'>
                                         <img
                                         className="d-block"
                                         src={image}
                                         alt="First slide"
-                                        style={{ maxHeight: '85vh', width: '100%' }}
+                                        style={{ maxHeight: '85vh', width: '100%', objectFit: 'none' }}
                                         />
                                     </Carousel.Item>
                                 )

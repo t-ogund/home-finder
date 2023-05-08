@@ -137,6 +137,14 @@
   width: 400px;
 }
 
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
 @media screen and (max-width: 1020px) {
   .card-row {
     display: flex;

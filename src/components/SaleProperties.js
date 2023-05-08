@@ -239,7 +239,7 @@ let pending
                 </Col>
             </Row>
             <Row className='presentation-row h-100'>
-                <Col lg={8} xl={7} style={{ marginTop: '100px' }} className='d-none d-lg-block h-100 fixed-top map-container'>
+                <Col lg={8} xl={7} style={{ marginTop: '100px' }} className='d-none d-lg-block h-100 fixed-top map-container p-2'>
                     {
                         // if no results, display the coordinates lat: 0 and lng: 0 on the map
                         results &&
