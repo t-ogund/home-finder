@@ -20,7 +20,9 @@ const REACT_APP_ZILLOW_API_HOST = process.env.REACT_APP_ZILLOW_API_HOST;
 
 const RentalProperties = () => {
 // get location query from local storage
-const query = localStorage.getItem('input').replace(/['"]+/g, '')
+// const query = localStorage.getItem('input').replace(/['"]+/g, '')
+let query
+localStorage.getItem('input') === null ? query = 'minneapolis' : query = localStorage.getItem('input').replace(/['"]+/g, '')
 const [ location, setLocation ] = useState(query)
 const [ results, setResults ] = useState([]);
 const [ rentalPageQuery, setRentalPageQuery ] = useState('');
@@ -107,8 +109,10 @@ let pending
             for each property that meets filter condition, create a PropertyCard component */
             setPriceRangeProperties(
                     results.props.filter(property => {
-                        if ((property.price >= formattedMin) && (property.price < formattedMax)) {
-                            return property
+                        if (property.latitude !== null && property.longitude !== null) {
+                            if ((property.price >= formattedMin) && (property.price < formattedMax)) {
+                                return property
+                            }
                         }
                     }     
                 )
@@ -229,8 +233,8 @@ let pending
                     </Row>         
                 </Col>
             </Row>
-            <Row className='presentation-row h-100'>
-                <Col lg={8} xl={7} style={{ marginTop: '100px' }} className='d-none d-lg-block h-100 fixed-top'>
+            <Row style={{ padding: '0px' }} className='presentation-row h-100'>
+                <Col lg={8} xl={7} style={{ marginTop: '100px' }} className='d-none d-lg-block h-100 fixed-top p-2'>
                     {
                         propertiesForRent &&
                         <Map  

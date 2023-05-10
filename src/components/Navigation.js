@@ -7,7 +7,7 @@ import {
 
 const Navigation = () => {
     return(
-          <Navbar fixed='top' bg='light' expand='lg'>
+          <Navbar className='p-2' fixed='top' bg='light' expand='lg'>
             <Container>
               <Navbar.Brand href='/'>Home Finder</Navbar.Brand>
               <Navbar.Toggle aria-controls='basic-navbar-nav' />

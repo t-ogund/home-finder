@@ -19,8 +19,9 @@ const REACT_APP_ZILLOW_API_KEY = process.env.REACT_APP_ZILLOW_API_KEY;
 const REACT_APP_ZILLOW_API_HOST = process.env.REACT_APP_ZILLOW_API_HOST;
 
 const SaleProperties = () => {
-// get location query from local storage
-const query = localStorage.getItem('input').replace(/['"]+/g, '')
+// get location query from local storage. if no initial query, default to minneapolis otherwise search query
+let query
+localStorage.getItem('input') === null ? query = 'minneapolis' : query = localStorage.getItem('input').replace(/['"]+/g, '')
 const [ location, setLocation ] = useState(query)
 const [ results, setResults ] = useState([]);
 const [ buyPageQuery, setBuyPageQuery ] = useState('');
@@ -28,6 +29,7 @@ const [ min, setMin ] = useState(null);
 const [ max, setMax ] = useState(null);
 const [ priceRangeProperties, setPriceRangeProperties ] = useState(null);
 const [ priceFilterWarning, setPriceFilterWarning ] = useState('');
+
 
 
 const options = {
@@ -45,7 +47,8 @@ useEffect(() => {
 
     // set location to value saved in local storage
     setLocation(
-        localStorage.getItem('input').replace(/['"]+/g, '')
+        query
+        // localStorage.getItem('input').replace(/['"]+/g, '')
     )
 
     location && fetch(`https://zillow-com1.p.rapidapi.com/propertyExtendedSearch?location=${location}`, options)
@@ -61,7 +64,6 @@ let pending
     } else if (location && Object.keys(results).length === 0) {
         pending = <div className='pending-container'><h2>Searching {location}...</h2></div>
     } else {
-
     // take response from api call and filter for only properties that are for sale
     propertiesForSale = results.props && results.props.filter(property => {
         if ((property.listingStatus === 'FOR_SALE' && property.price !== null) && (property.latitude !== null && property.longitude !== null)) {
@@ -238,7 +240,7 @@ let pending
                     </Row>         
                 </Col>
             </Row>
-            <Row className='presentation-row h-100'>
+            <Row style={{ padding: '0px' }} className='presentation-row h-100'>
                 <Col lg={8} xl={7} style={{ marginTop: '100px' }} className='d-none d-lg-block h-100 fixed-top map-container p-2'>
                     {
                         // if no results, display the coordinates lat: 0 and lng: 0 on the map
@@ -263,7 +265,7 @@ let pending
                         
                     }   
                 </Col>
-                <Col></Col>
+                <Col className='spacer'></Col>
                 <Col className='property-image-container offset-sm py-5' lg={4} xl={5}>
                     <h3>For Sale in {location}</h3>
                     {
