@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
     Container, 
     Row, 
@@ -13,16 +13,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux';
 import { setInput } from '../actions';
-import { Carousel } from 'react-bootstrap';
-import { setInputReducer } from '../reducers/input';
 
 
 const Home = () => {
     const input = useSelector(state => state.setInputReducer);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const handleSubmit = () => {
-        //placeholder
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        localStorage.setItem('input', JSON.stringify(input))
+        navigate('/sale-properties')
     }
 
     const handleClick = () => {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 import PropertyMarker from './PropertyMarker';
 
@@ -19,7 +20,9 @@ const Map = ( props ) => {
     }
 
 // declare state for property markers. default state is the array of propery results
-const [ markers, setMarkers ] = useState(props.results.props)
+const [ markers, setMarkers ] = useState(props.results.props);
+const state = useSelector(state => state)
+const hovering = useSelector(state => state.setHoverReducer)
 
 useEffect(() => {
     async function configureMarkers() {
@@ -31,7 +34,8 @@ useEffect(() => {
             and longitude of each property */
             props.priceRangeProperties !== null ?
             await props.priceRangeProperties.map((result, index) => {
-                return <PropertyMarker index={index} key={result.props.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} />
+                console.log('result', result)
+                return <PropertyMarker hoverStatus={hovering.index === index} index={index} key={result.props.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} price={result.props.children.props.price} />
             })
             
             :
@@ -41,7 +45,7 @@ useEffect(() => {
             and longitude of each property */
             props.results[0] !== undefined && props.results[0].props.children.props.status === 'FOR_RENT' ?
             await props.results.map((result, index) => {
-                return <PropertyMarker index={index} key={result.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} />
+                return <PropertyMarker hoverStatus={hovering.index === index} index={index} key={result.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} price={result.props.children.props.price} />
             })
 
             :
@@ -49,14 +53,14 @@ useEffect(() => {
             create PropertyMarker component whose coordinates are the latitude 
             and longitude of each property */
             await props.results.props.map((result, index) => {
-                return <PropertyMarker index={index} key={result.zpid} lat={result.latitude} lng={result.longitude} status={result.listingStatus} />
+                return <PropertyMarker hoverStatus={hovering.index === index} index={index} key={result.zpid} lat={result.latitude} lng={result.longitude} status={result.listingStatus} price={result.price} />
             })
         )
     }
 
     configureMarkers()
 
-}, [ props.results.props, props.priceRangeProperties, props.results ])
+}, [ props.results.props, props.priceRangeProperties, props.results, hovering ])
 
     return(
         <div style={{ height: '100vh' }} className='map'>

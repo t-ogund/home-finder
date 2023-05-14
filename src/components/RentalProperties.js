@@ -9,11 +9,13 @@ import {
     Button,
     InputGroup
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropertyCard from './PropertyCard';
 import Map from './Map';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { hoverEffect, removeHoverEffect } from '../actions';
 
 const REACT_APP_ZILLOW_API_KEY = process.env.REACT_APP_ZILLOW_API_KEY;
 const REACT_APP_ZILLOW_API_HOST = process.env.REACT_APP_ZILLOW_API_HOST;
@@ -30,6 +32,9 @@ const [ min, setMin ] = useState(null);
 const [ max, setMax ] = useState(null);
 const [ priceRangeProperties, setPriceRangeProperties ] = useState(null);
 const [ priceFilterWarning, setPriceFilterWarning ] = useState('');
+
+const dispatch = useDispatch();
+const navigate = useNavigate();
 
 const options = {
 	method: 'GET',
@@ -66,9 +71,10 @@ let pending
         }
     })
     // take properties for rent and for each property create a PropertyCard component
-    .map(property => {
+    .map((property, index) => {
         return <Col className='p-1' xl={6} lg={12} md={4} sm={6}>
                     <PropertyCard
+                        hoverEffect={() => dispatch(hoverEffect(index))}
                         id={property.zpid}
                         key={property.zpid}
                         price={property.price}
@@ -116,9 +122,10 @@ let pending
                         }
                     }     
                 )
-                .map(property => {
+                .map((property, index) => {
                     return (<Col className='p-1' xl={6} lg={12} md={4} sm={6}>
                                 <PropertyCard
+                                    hoverEffect={() => dispatch(hoverEffect(index))}
                                     id={property.zpid}
                                     key={property.zpid}
                                     price={property.price}
@@ -152,6 +159,14 @@ let pending
         )
     }
 
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        setLocation(
+            localStorage.setItem('input', JSON.stringify(rentalPageQuery))
+        )
+    }
+
     function handleClickMin(e) {
         setMin(e.target.textContent)
 
@@ -167,7 +182,7 @@ let pending
                 <Col className='sticky-top mt-5 pt-2'>
                     <Row className='form-container'>
                         <Col className='options-container'>
-                        <Form className='form-input m-1'>
+                        <Form onSubmit={handleSubmit} className='form-input m-1'>
                             <InputGroup controlId='formBasicEmail'>
                                 <Form.Control id='buy-page-searchbox' onChange={handleChange} type='text' placeholder='City, Neighborhood, ZIP, Address' />
                         <Button style={{ border: '1px solid gray', height: '100%', margin: '0' }} id='buy-page-search-button' className='m-1' onClick={handleClick}>

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Card } from 'react-bootstrap';
 
 import Modal from 'react-bootstrap/Modal';
 import Carousel from 'react-bootstrap/Carousel';
 import { useDispatch } from 'react-redux';
-import { hoverEffect } from '../actions';
 import Spinner from 'react-bootstrap/Spinner';
 
 const REACT_APP_ZILLOW_API_KEY = process.env.REACT_APP_ZILLOW_API_KEY;
@@ -34,18 +33,6 @@ const PropertyCard = (props) => {
             .then(response => setImages(response))
             .catch(err => console.error(err));
       }
-
-    function handleMouseEnter(e) {
-        if (e.target.tagName === 'DIV') {
-            dispatch(hoverEffect(e))
-        }
-    }
-
-    function handleMouseLeave(e) {
-        if (e.target.tagName === 'DIV') {
-            dispatch(hoverEffect(e))
-        }
-    }
    
     let newImages = images.images
 
@@ -71,7 +58,7 @@ const PropertyCard = (props) => {
   
     return(
         <>
-            <Card className='Card' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleShow} style={{ textAlign: 'left' }}>
+            <Card className='Card' onMouseEnter={props.hoverEffect} onClick={handleShow} style={{ textAlign: 'left' }}>
                 <Card.Img style={{ height: '13rem', objectFit: 'none' }} variant='top' src={props.img} />
                 <Card.Body className='p-1' style={{ height: '7rem' }}>
                     <h5 style={{ margin: '0' }}>${props.status === 'FOR_SALE' ? props.price === undefined ? 'TBD' : props.price.toLocaleString('en') : props.price === undefined ? 'TBD' : props.price.toLocaleString('en') + '/month'}</h5>
