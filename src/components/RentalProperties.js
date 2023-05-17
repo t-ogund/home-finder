@@ -262,7 +262,7 @@ let pending
                 </Col>
                 <Col></Col>
                 <Col className='property-image-container offset-sm py-5' lg={4} xl={5}>
-                    <h3>For Rent in {location}</h3>
+                    { results.props && <h3>For Rent in {location}</h3> }
                     {
                         <Row>
                             {

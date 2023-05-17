@@ -260,7 +260,7 @@ let pending
                     {
                         // if no results, display the coordinates lat: 0 and lng: 0 on the map
                         results &&
-                        Object.keys(results).length === 0 ?
+                        Object.keys(results).length === 0 || results.props === undefined ?
                         <Map  
                             results={results}
                             priceRangeProperties={priceRangeProperties}
@@ -282,7 +282,7 @@ let pending
                 </Col>
                 <Col className='spacer'></Col>
                 <Col className='property-image-container offset-sm py-5' lg={4} xl={5}>
-                    <h3>For Sale in {location}</h3>
+                    { results.props && <h3>For Sale in {location}</h3> }
                     {
                         <Row>
                             {
