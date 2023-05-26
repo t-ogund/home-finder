@@ -1,3 +1,22 @@
+This is an app called Home Finder (creative, I know). You simply enter a city or zip code 
+and the app will display properties for sale or for rent in the area. Each property will also be 
+plotted on a map.
+
+This app was build with React, React-Bootstrap, and Redux.
+
+Home Finder integrates two APIs:
+  A Zillow API, which provides the property data (https://rapidapi.com/apimaker/api/zillow-com1)
+  The Google Maps React API, which provides the map (https://www.npmjs.com/package/@react-google-maps/api)
+
+To start the app:
+  Clone the app from the main branch using git clone
+  Navigate to the project directory and run an npm install to install all the project dependencies
+  Finally run an npm start
+
+Thanks for checking it out!
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
