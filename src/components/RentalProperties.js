@@ -66,7 +66,7 @@ let pending
     filtering out properties where price, lat, or lng are null */
 
     const propertiesForRent = results.props && results.props.filter(property => {
-        if ((property.listingStatus === 'FOR_RENT') && (property.latitude !== null && property.longitude !== null)) {
+        if ((property.listingStatus === 'FOR_RENT' && (property.price !== undefined && property.price !== null)) && (property.latitude !== null && property.longitude !== null)) {
             return property
         }
     })

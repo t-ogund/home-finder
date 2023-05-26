@@ -71,6 +71,7 @@ let pending
     } else {
     // take response from api call and filter for only properties that are for sale
     propertiesForSale = results.props && results.props.filter(property => {
+        
         if ((property.listingStatus === 'FOR_SALE' && property.price !== null) && (property.latitude !== null && property.longitude !== null)) {
             return property
         }
@@ -98,7 +99,6 @@ let pending
         })
     }
     
-
     function handleClickMin(e) {
         setMin(e.target.textContent)
 
@@ -271,13 +271,11 @@ let pending
                         // if there are results, default map location is lat and lng of first result
                         <Map
                             className='map'
-                            results={results}
+                            results={propertiesForSale}
                             priceRangeProperties={priceRangeProperties}
                             lat={!Array.isArray(results) ? propertiesForSale[0].props.children.props.lat : null}
                             lng={!Array.isArray(results) > 0 ? propertiesForSale[0].props.children.props.lng : null} 
-                        /> 
-                        
-                        
+                        />   
                     }   
                 </Col>
                 <Col className='spacer'></Col>

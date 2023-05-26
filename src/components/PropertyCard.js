@@ -59,7 +59,7 @@ const PropertyCard = (props) => {
     return(
         <>
             <Card className='Card' onMouseEnter={props.hoverEffect} onClick={handleShow} style={{ textAlign: 'left' }}>
-                <Card.Img style={{ height: '13rem', objectFit: 'none' }} variant='top' src={props.img} />
+                <Card.Img style={{ height: '13rem', objectFit: 'none' }} variant='top' src={props.img.includes('zillowstatic') ? props.img : 'image-coming-soon.png'} />
                 <Card.Body className='p-1' style={{ height: '7rem' }}>
                     <h5 style={{ margin: '0' }}>${props.status === 'FOR_SALE' ? props.price === undefined ? 'TBD' : props.price.toLocaleString('en') : props.price === undefined ? 'TBD' : props.price.toLocaleString('en') + '/month'}</h5>
                     <Card.Text>

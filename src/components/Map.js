@@ -34,7 +34,6 @@ useEffect(() => {
             and longitude of each property */
             props.priceRangeProperties !== null ?
             await props.priceRangeProperties.map((result, index) => {
-                console.log('result', result)
                 return <PropertyMarker hoverStatus={hovering.index === index} index={index} key={result.props.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} price={result.props.children.props.price} />
             })
             
@@ -52,8 +51,8 @@ useEffect(() => {
             /* if no price filter and property is FOR_SALE - for each property
             create PropertyMarker component whose coordinates are the latitude 
             and longitude of each property */
-            await props.results.props.map((result, index) => {
-                return <PropertyMarker hoverStatus={hovering.index === index} index={index} key={result.zpid} lat={result.latitude} lng={result.longitude} status={result.listingStatus} price={result.price} />
+            await props.results.map((result, index) => {
+                return <PropertyMarker hoverStatus={hovering.index === index} index={index} key={result.props.children.props.zpid} lat={result.props.children.props.lat} lng={result.props.children.props.lng} status={result.props.children.props.status} price={result.props.children.props.price} />
             })
         )
     }
