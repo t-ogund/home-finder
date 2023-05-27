@@ -13,14 +13,14 @@ To start the app:
   Navigate to the project directory and run an npm install to install all the project dependencies
   Finally run an npm start
   
-Known limitations:
+<b>Known limitations:<b>
 
-  Why are there only 40 results per location?
+  Why are there only 40 results per location?<br>
     The Zillow API only allows <a href="https://rapidapi.com/apimaker/api/zillow-com1/tutorials/frequently-asked-   questions#:~:text=40%20records%20per%20page%20is%20the%20maximum.%20You%20will%20have%20to%20use%20the%20loop%20and%20refer%20to%20the%20API%20page%20per%20page%20(f rom%201%20to%2020%2C%2020%20pages%20%3D%2020%20API%20calls).">40 results per location for each API call</a>.
     Receiving all results for a particular location would result in several API calls. Since this is simply a 
     portfolio project, using a paid API, I will be sticking with 40 results per location.
   
-  Why do some locations have less than 40 results?
+  Why do some locations have less than 40 results?<br>
     Of the 40 results that are returned per location, some do not have the price determined yet. Others do not have a latitude and longitude provided. 
     As a result, properties whose price value is null and properties whose latitude/longitude is null have been filtered out.
 
