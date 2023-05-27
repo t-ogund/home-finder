@@ -13,7 +13,7 @@ To start the app:
   Navigate to the project directory and run an npm install to install all the project dependencies
   Finally run an npm start
   
-<b>Known limitations:<b>
+<b>Known limitations:</b>
 
   Why are there only 40 results per location?<br>
     The Zillow API only allows <a href="https://rapidapi.com/apimaker/api/zillow-com1/tutorials/frequently-asked-   questions#:~:text=40%20records%20per%20page%20is%20the%20maximum.%20You%20will%20have%20to%20use%20the%20loop%20and%20refer%20to%20the%20API%20page%20per%20page%20(f rom%201%20to%2020%2C%2020%20pages%20%3D%2020%20API%20calls).">40 results per location for each API call</a>.
