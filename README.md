@@ -16,7 +16,7 @@ To start the app:
 <b>Known limitations:</b>
 
   Why are there only 40 results per location?<br>
-    The Zillow API only allows <a href="[https://rapidapi.com/apimaker/api/zillow-com1/tutorials/frequently-asked-   questions#:~:text=40%20records%20per%20page%20is%20the%20maximum.%20You%20will%20have%20to%20use%20the%20loop%20and%20refer%20to%20the%20API%20page%20per%20page%20(f rom%201%20to%2020%2C%2020%20pages%20%3D%2020%20API%20calls).](https://rapidapi.com/apimaker/api/zillow-com1/tutorials/frequently-asked-questions#:~:text=Anyway%20that%20I%20can%20obtain%20more%20data%20and%20requests%3F%20%3E40%3F)">40 results per location for each API call</a>.
+    The Zillow API only allows <a href="https://rapidapi.com/apimaker/api/zillow-com1/tutorials/frequently-asked-questions#:~:text=Anyway%20that%20I%20can%20obtain%20more%20data%20and%20requests%3F%20%3E40%3F" target="_blank">40 results per location for each API call</a>.
     Receiving all results for a particular location would result in several API calls. Since this is simply a 
     portfolio project, using a paid API, I will be sticking with 40 results per location.
   
